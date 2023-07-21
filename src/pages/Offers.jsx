@@ -18,6 +18,7 @@ export default function Offers() {
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [lastFetchedListing, setLastFetchListing] = useState(null);
+
   useEffect(() => {
     async function fetchListings() {
       try {
@@ -65,12 +66,14 @@ export default function Offers() {
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
       setLastFetchListing(lastVisible);
       const listings = [];
+
       querySnap.forEach((doc) => {
         return listings.push({
           id: doc.id,
           data: doc.data(),
         });
       });
+      
       setListings((prevState)=>[...prevState, ...listings]);
       setLoading(false);
     } catch (error) {
